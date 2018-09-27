@@ -7,16 +7,17 @@ namespace SnakeGame
         const int SnakeInitSize = 8;
 
         static Snake _snake;
-        readonly static Block _initBlock = new Block(2, 2, '*');
-        readonly static Block _endBlock = new Block(22, 22, '*');
+        readonly static Block _initBlock = new Block(7, 7, '*');
+        readonly static Block _endBlock = new Block(47, 20, '*');
 
         static void Main(string[] args)
-        {
+        {   
             Console.CursorVisible = false;
 
             while (true)
             {
                 Console.Clear();
+                PrintHeader();
 
                 _snake = new Snake(SnakeInitSize, _initBlock);
 
@@ -55,6 +56,15 @@ namespace SnakeGame
         {
             Console.SetCursorPosition(0, _endBlock.Y + 5);
             Console.WriteLine("Fim de jogo");
+        }
+
+        static void PrintHeader()
+        {
+            Console.WriteLine(@"
+      #########################################
+                  ##### SNAKE #####
+      #########################################
+");
         }
     }
 }

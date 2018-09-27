@@ -26,7 +26,7 @@ namespace SnakeGame
 
         public static void Refresh()
         {
-            Console.Clear();
+            Clean();
             PrintBorders();
 
             foreach (var block in Snake.Body)
@@ -57,6 +57,18 @@ namespace SnakeGame
 
                 Console.SetCursorPosition(EndBlock.X, y);
                 Console.Write(BorderChar);
+            }
+        }
+
+        private static void Clean()
+        {
+            for (int x = InitBlock.X; x < EndBlock.X; x++)
+            {
+                for (int y = InitBlock.Y; y < EndBlock.Y; y++)
+                {
+                    Console.SetCursorPosition(x, y);
+                    Console.Write(' ');
+                }
             }
         }
 
