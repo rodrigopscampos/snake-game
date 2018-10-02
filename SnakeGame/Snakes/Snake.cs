@@ -10,6 +10,8 @@ namespace SnakeGame
 
         private List<Block> _body = new List<Block>();
 
+        public Block OldTail;
+
         public Block Head => Body.Last();
         public Block Tail => Body.First();
 
@@ -35,8 +37,9 @@ namespace SnakeGame
 
         public void Move(Direction direction)
         {
+            OldTail = Tail;
+
             var head = Head;
-            var tail = Tail;
 
             switch (direction)
             {

@@ -42,7 +42,7 @@ namespace SnakeGame
 
                     _snake.Move(direction);
 
-                    if (_snake.Eat(Map.Feed))
+                    if (_snake.Eat(Map.Food))
                     {
                         Map.NewFeed();
                     }

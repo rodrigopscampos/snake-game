@@ -11,7 +11,7 @@ namespace SnakeGame
         public static Block InitBlock { get; private set; }
         public static Block EndBlock { get; private set; }
 
-        public static Block Feed { get; private set; }
+        public static Block Food { get; private set; }
 
         public static Snake Snake { get; private set; }
 
@@ -35,8 +35,8 @@ namespace SnakeGame
                 Console.Write(block.Solid);
             }
 
-            Console.SetCursorPosition(Feed.X, Feed.Y);
-            Console.Write(Feed.Solid);
+            Console.SetCursorPosition(Food.X, Food.Y);
+            Console.Write(Food.Solid);
         }
 
         public static void PrintBorders()
@@ -62,14 +62,17 @@ namespace SnakeGame
 
         private static void Clean()
         {
-            for (int x = InitBlock.X; x < EndBlock.X; x++)
+            foreach (var block in Snake.Body)
             {
-                for (int y = InitBlock.Y; y < EndBlock.Y; y++)
-                {
-                    Console.SetCursorPosition(x, y);
-                    Console.Write(' ');
-                }
+                Console.SetCursorPosition(block.X, block.Y);
+                Console.Write(' ');
             }
+
+            Console.SetCursorPosition(Snake.OldTail.X, Snake.OldTail.Y);
+            Console.Write(' ');
+
+            Console.SetCursorPosition(Food.X, Food.Y);
+            Console.Write(' ');
         }
 
         public static void NewFeed()
@@ -85,7 +88,7 @@ namespace SnakeGame
             }
             while (Snake.BodyIsOver(block));
 
-            Feed = block;
+            Food = block;
         }
     }
 }
