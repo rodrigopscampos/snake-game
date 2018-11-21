@@ -1,3 +1,5 @@
+using System;
+
 namespace SnakeGame
 {
     public struct Block
@@ -5,12 +7,14 @@ namespace SnakeGame
         public int X;
         public int Y;
         public char Solid;
+        public ConsoleColor? Color;
 
-        public Block(int x, int y, char solid)
+        public Block(int x, int y, char solid, ConsoleColor? color = null)
         {
             X = x;
             Y = y;
             Solid = solid;
+            Color = color;
         }
 
         public override bool Equals(object obj)

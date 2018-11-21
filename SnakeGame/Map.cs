@@ -36,7 +36,13 @@ namespace SnakeGame
             }
 
             Console.SetCursorPosition(Food.X, Food.Y);
+
+            if (Food.Color.HasValue)
+                Console.ForegroundColor = Food.Color.Value;
+
             Console.Write(Food.Solid);
+
+            Console.ResetColor();
         }
 
         public static void PrintBorders()
@@ -84,7 +90,7 @@ namespace SnakeGame
                 var x = _random.Next(InitBlock.X + 1, EndBlock.X);
                 var y = _random.Next(InitBlock.Y + 1, EndBlock.Y);
 
-                block = new Block(x, y, 'C');
+                block = new Block(x, y, 'F', ConsoleColor.DarkGreen);
             }
             while (Snake.BodyIsOver(block));
 
