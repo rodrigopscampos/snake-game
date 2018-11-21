@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SnakeGame.Slitters;
+using System;
 
 namespace SnakeGame
 {
@@ -13,9 +14,9 @@ namespace SnakeGame
 
         public static Block Food { get; private set; }
 
-        public static Snake Snake { get; private set; }
+        public static Slitter Snake { get; private set; }
 
-        public static void Init(Block initBlock, Block endBlock, Snake snake)
+        public static void Init(Block initBlock, Block endBlock, Slitter snake)
         {
             InitBlock = initBlock;
             EndBlock = endBlock;
@@ -31,16 +32,20 @@ namespace SnakeGame
 
             foreach (var block in Snake.Body)
             {
-                Console.SetCursorPosition(block.X, block.Y);
-                Console.Write(block.Solid);
+                WriteBlock(block);
             }
 
-            Console.SetCursorPosition(Food.X, Food.Y);
+            WriteBlock(Food);
+        }
 
-            if (Food.Color.HasValue)
-                Console.ForegroundColor = Food.Color.Value;
+        static void WriteBlock(Block block)
+        {
+            Console.SetCursorPosition(block.X, block.Y);
 
-            Console.Write(Food.Solid);
+            if (block.Color.HasValue && Console.ForegroundColor != block.Color.Value)
+                Console.ForegroundColor = block.Color.Value;
+
+            Console.Write(block.Solid);
 
             Console.ResetColor();
         }
@@ -49,20 +54,14 @@ namespace SnakeGame
         {
             for (int x = InitBlock.X; x < EndBlock.X; x++)
             {
-                Console.SetCursorPosition(x, InitBlock.Y - 1);
-                Console.Write(BorderChar);
-
-                Console.SetCursorPosition(x, EndBlock.Y);
-                Console.Write(BorderChar);
+                WriteBlock(new Block(x, InitBlock.Y - 1, BorderChar));
+                WriteBlock(new Block(x, EndBlock.Y, BorderChar));
             }
 
             for (int y = InitBlock.Y; y < EndBlock.Y; y++)
             {
-                Console.SetCursorPosition(InitBlock.X - 1, y);
-                Console.Write(BorderChar);
-
-                Console.SetCursorPosition(EndBlock.X, y);
-                Console.Write(BorderChar);
+                WriteBlock(new Block(InitBlock.X - 1, y, BorderChar));
+                WriteBlock(new Block(EndBlock.X, y, BorderChar));
             }
         }
 
@@ -70,15 +69,11 @@ namespace SnakeGame
         {
             foreach (var block in Snake.Body)
             {
-                Console.SetCursorPosition(block.X, block.Y);
-                Console.Write(' ');
+                WriteBlock(new Block(block.X, block.Y, ' '));
             }
 
-            Console.SetCursorPosition(Snake.OldTail.X, Snake.OldTail.Y);
-            Console.Write(' ');
-
-            Console.SetCursorPosition(Food.X, Food.Y);
-            Console.Write(' ');
+            WriteBlock(new Block(Snake.OldTail.X, Snake.OldTail.Y, ' '));
+            WriteBlock(new Block(Food.X, Food.Y, ' '));
         }
 
         public static void NewFeed()

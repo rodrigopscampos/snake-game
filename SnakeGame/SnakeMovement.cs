@@ -1,13 +1,14 @@
-﻿using System.Linq;
+﻿using SnakeGame.Slitters;
+using System.Linq;
 
 namespace SnakeGame
 {
     public class SnakeMovement
     {
-        readonly Snake _snake;
+        readonly Slitter _snake;
         readonly Direction _direction;
 
-        public SnakeMovement(Snake snake, Direction direction)
+        public SnakeMovement(Slitter snake, Direction direction)
         {
             _snake = snake;
             _direction = direction;

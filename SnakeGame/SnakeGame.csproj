@@ -47,7 +47,10 @@
     <Compile Include="Map.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Snakes\Snake.cs" />
+    <Compile Include="Slitters\Caracol.cs" />
+    <Compile Include="Slitters\Lagarta.cs" />
+    <Compile Include="Slitters\Slitter.cs" />
+    <Compile Include="Slitters\Snake.cs" />
     <Compile Include="SnakeMovement.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,41 +1,40 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SnakeGame
 {
-    public class Snake
+    public abstract class Slitter
     {
-        public int InitSize { get; }
-        public IEnumerable<Block> Body => _body;
-
-        private List<Block> _body = new List<Block>();
+        public abstract int InitSize { get; }
+        public List<Block> Body { get; set; } = new List<Block>();
 
         public Block OldTail;
 
         public Block Head => Body.Last();
         public Block Tail => Body.First();
 
-        protected char BodyChar = '0';
-        protected char HeadChar = 'X';
+        protected abstract char BodyChar { get; }
+        protected abstract char HeadChar { get; }
 
-        public Snake(int initSize, Block initBlock)
+        protected virtual ConsoleColor BodyColor { get; set; } = ConsoleColor.White;
+        protected virtual ConsoleColor HeadColor { get; set; } = ConsoleColor.White;
+
+        public Slitter(Block initBlock)
         {
-            _body = new List<Block>();
-            InitSize = initSize;
-
-            for (int i = 0; i < initSize; i++)
+            Body = new List<Block>();
+            for (int i = 0; i < InitSize; i++)
             {
                 var block =
-                    i == initSize - 1
-                    ? new Block(initBlock.X, initBlock.Y + i, HeadChar)
-                    : new Block(initBlock.X, initBlock.Y + i, BodyChar);
+                    i == InitSize - 1
+                    ? new Block(initBlock.X, initBlock.Y + i, HeadChar, HeadColor)
+                    : new Block(initBlock.X, initBlock.Y + i, BodyChar, BodyColor);
 
-                _body.Add(block);
+                Body.Add(block);
             }
-
         }
 
-        public void Move(Direction direction)
+        public virtual void Move(Direction direction)
         {
             OldTail = Tail;
 
@@ -71,22 +70,22 @@ namespace SnakeGame
                     return;
             }
 
-            _body.RemoveAt(0);
+            Body.RemoveAt(0);
 
-            var previousHead = _body[_body.Count - 1];
+            var previousHead = Body[Body.Count - 1];
             previousHead.Solid = BodyChar;
 
-            _body[_body.Count - 1] = previousHead;
+            Body[Body.Count - 1] = previousHead;
 
             head.Solid = HeadChar;
-            _body.Add(head);
+            Body.Add(head);
         }
 
-        public bool Eat(Block feed)
+        public virtual bool Eat(Block feed)
         {
             if (Head.Equals(feed))
             {
-                _body.Insert(0, Tail);
+                Body.Insert(0, Tail);
                 return true;
             }
 
