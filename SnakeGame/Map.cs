@@ -26,8 +26,8 @@ namespace SnakeGame
 
         public static void Refresh()
         {
-            Clean();
-            PrintBorders();
+            Console.SetCursorPosition(Snake.OldTail.X, Snake.OldTail.Y);
+            Console.Write(' ');
 
             foreach (var block in Snake.Body)
             {
