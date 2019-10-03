@@ -82,7 +82,7 @@ namespace SnakeGame
         static void PrintEndOfGameMessage()
         {
             Console.SetCursorPosition(0, _endBlock.Y + 5);
-            Console.WriteLine("Fim de jogo");
+            Console.WriteLine("Game Over");
         }
 
         static void PrintHeader()
